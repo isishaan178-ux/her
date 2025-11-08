@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>From Your Dumb BF</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Handlee&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-card: rgba(18, 9, 39, 0.95);
+      --accent: #ff87b7;
+      --accent-soft: #ffc4dd;
+      --text-main: #fdf7ff;
+      --text-soft: #c9b7ff;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, sans-serif;
+      background: radial-gradient(circle at top, #ffe5f3 0, #2a1841 40%, #0b0714 85%);
+      color: var(--text-main);
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(32px);
+      opacity: 0.55;
+    }
+
+    .blob-1 { width: 260px; height: 260px; background: #ff7ab3; top: -60px; left: -40px; }
+    .blob-2 { width: 320px; height: 320px; background: #8f6bff; bottom: -120px; right: -40px; }
+    .blob-3 { width: 220px; height: 220px; background: #ffcf8a; top: 40%; right: 60%; }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 28px 16px 24px;
+      overflow-y: auto;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: 26px;
+      padding: 24px 22px;
+      max-width: 880px;
+      width: 100%;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(16px);
+    }
+
+    .landing-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .photo-ring {
+      padding: 10px;
+      border-radius: 999px;
+      background: conic-gradient(from 210deg, #ff9ac5, #a58aff, #ffcf9f, #ff9ac5);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      display: inline-block;
+    }
+
+    .sad-photo {
+      width: 240px;
+      height: 240px;
+      border-radius: 999px;
+      object-fit: cover;
+      border: 3px solid rgba(18, 9, 39, 0.9);
+      box-shadow: 0 0 0 6px rgba(18, 9, 39, 0.9);
+      display: block;
+    }
+
+    .title-line {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 0.92rem;
+      color: var(--text-soft);
+      margin-top: 6px;
+      margin-bottom: 14px;
+    }
+
+    .tagline {
+      font-size: 0.9rem;
+      color: #ffe0f0;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff6fa3, #ffb1d0);
+      color: #230f2d;
+      box-shadow: 0 10px 25px rgba(255, 111, 163, 0.6);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      white-space: nowrap;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 32px rgba(255, 111, 163, 0.9);
+    }
+
+    .main-text {
+      white-space: pre-line;
+      line-height: 1.7;
+      font-size: 0.98rem;
+      color: #f4eaff;
+    }
+
+    .highlight {
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+
+    .ending {
+      margin-top: 18px;
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+
+    .signature {
+      text-align: right;
+      font-family: "Handlee", cursive;
+      color: var(--accent-soft);
+      margin-top: 12px;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 720px) {
+      .landing-layout { grid-template-columns: minmax(0, 1fr); text-align: center; }
+      .sad-photo { width: 190px; height: 190px; margin: 0 auto; }
+      .title-line { font-size: 1.45rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- background blobs -->
+  <div class="bg-layer">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- hidden audio -->
+  <audio id="bgMusic" src="co2.mp3" preload="auto"></audio>
+
+  <!-- Landing screen -->
+  <section id="landingScreen" class="screen">
+    <div class="card">
+      <div class="landing-layout">
+        <div style="text-align:center">
+          <div class="photo-ring">
+            <img src="sad.jpg" alt="Sad dumb boyfriend" class="sad-photo" />
+          </div>
+          <p style="font-size:0.8rem;margin-top:8px;color:#c9b7ff">Exhibit A: deeply regretting everything.</p>
+        </div>
+
+        <div>
+          <div class="title-line">Don’t be sad at your dumb bf 💔</div>
+          <p class="subtitle">
+            (who is currently replaying every moment with you and wishing he handled things better)
+          </p>
+          <p class="tagline">
+            I know I messed up, and I can’t magically fix everything with one page… but I wanted to start here.
+          </p>
+          <button id="forgiveBtn">Click here to forget your gussa 🥺 ➜</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Message screen -->
+  <section id="messageScreen" class="screen hidden">
+    <div class="card">
+      <p class="main-text">
+Yes, I <span class="highlight">fuck up a lot</span>. I overthink, say stupid things, and end up hurting you when that’s the last thing I ever want.
+But even with all of that… you are still the <span class="highlight">best thing that’s ever happened to me</span>.
+
+I don’t want to just say “sorry” and disappear. I want to <span class="highlight">show you</span>—slowly, consistently—how much you mean to me.  
+This little page is just one tiny part of that effort… something you might randomly open one day and smile at, even if you’re mad at me.
+
+If I made you feel ignored, unimportant, or unloved, I am genuinely sorry. You don’t deserve that.  
+You deserve patience, effort, and someone who chooses you even on the tough, messy days.  
+And I really, honestly, <span class="highlight">want to be that person for you</span>.
+
+I can’t promise I’ll suddenly become perfect, but I can promise I’m going to try harder:  
+more listening, less ego.  
+more “it’s okay, we’ll handle it”, less “leave it”.  
+more “I got you”, <span class="highlight">always</span>.
+      </p>
+
+      <p class="ending">
+        You can stay angry at me a little longer if you want—honestly, I probably deserve it.  
+        But even when you’re angry, it’s still <span class="highlight">you</span> I’m in love with.
+      </p>
+
+      <p class="signature">
+        yours, always,<br />
+        dumb but loyal.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    const landingScreen = document.getElementById("landingScreen");
+    const messageScreen = document.getElementById("messageScreen");
+    const forgiveBtn = document.getElementById("forgiveBtn");
+    const bgMusic = document.getElementById("bgMusic");
+
+    forgiveBtn.addEventListener("click", () => {
+      // switch screens
+      landingScreen.classList.add("hidden");
+      messageScreen.classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      // try to autoplay song after user click (allowed by browsers)
+      if (bgMusic) {
+        bgMusic.currentTime = 0;
+        bgMusic.volume = 0.9;
+        bgMusic.play().catch(() => {
+          console.log("Autoplay blocked by browser – needs one manual play if you want controls.");
+        });
+      }
+    });
+  </script>
+</body>
+</html>
